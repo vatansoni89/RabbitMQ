@@ -123,7 +123,7 @@ namespace MicroRabbit.Infra.Bus
                     var eventType = _eventTypes.SingleOrDefault(x => x.Name == "eventName");
                     var @event = JsonConvert.DeserializeObject(message,eventType);
                     var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
-                    await (Task)concreteType.GetMethod("").Invoke(handler,
+                    await (Task)concreteType.GetMethod("Handle").Invoke(handler,
                         new object[] { @event });
                 }
             }
